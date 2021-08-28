@@ -5,7 +5,7 @@
  */
 package view.form;
 
-import java.awt.Frame;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -14,18 +14,12 @@ import java.awt.Frame;
 public class FrmReservations extends javax.swing.JDialog {
 
     /**
-     * Creates new form frmReservations
+     * Creates new form FrmReservations
      */
-   public FrmReservations(java.awt.Frame parent, boolean modal) {
+    public FrmReservations(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-
-    
-
-    
-
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,23 +34,23 @@ public class FrmReservations extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
         cmbClient = new javax.swing.JComboBox<>();
         txtDate = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnRemoveItem = new javax.swing.JButton();
         txtSum = new javax.swing.JTextField();
+        btnSaveReservation = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        btnCancel = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         cmbServices = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtProductPrice = new javax.swing.JTextField();
-        btnAddProduct = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        btnRemoveItem = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAddDetail = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -75,13 +69,23 @@ public class FrmReservations extends javax.swing.JDialog {
 
         txtDate.setText("jTextField1");
 
+        jTextField1.setText("jTextField1");
+
         jLabel1.setText("Client");
+
+        jLabel4.setText("Id");
 
         jLabel2.setText("Date");
 
+        btnRemoveItem.setText("Remove item");
+
         txtSum.setText("jTextField1");
 
+        btnSaveReservation.setText("Make a reservation");
+
         jLabel3.setText("Sum total");
+
+        btnCancel.setText("Cancel");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reservation details"));
 
@@ -89,7 +93,7 @@ public class FrmReservations extends javax.swing.JDialog {
 
         jLabel6.setText("Price:");
 
-        btnAddProduct.setText("Add");
+        btnAddDetail.setText("Add");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,7 +109,7 @@ public class FrmReservations extends javax.swing.JDialog {
                     .addComponent(cmbServices, 0, 360, Short.MAX_VALUE)
                     .addComponent(txtProductPrice))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAddProduct)
+                .addComponent(btnAddDetail)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -115,23 +119,13 @@ public class FrmReservations extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbServices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddProduct))
+                    .addComponent(btnAddDetail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
-
-        jTextField1.setText("jTextField1");
-
-        jLabel4.setText("Id");
-
-        btnRemoveItem.setText("Remove item");
-
-        jButton1.setText("Make a reservation");
-
-        jButton2.setText("Cancel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,12 +153,12 @@ public class FrmReservations extends javax.swing.JDialog {
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(btnRemoveItem)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnCancel)
                 .addGap(31, 31, 31)
-                .addComponent(jButton1)
+                .addComponent(btnSaveReservation)
                 .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
@@ -193,10 +187,10 @@ public class FrmReservations extends javax.swing.JDialog {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnSaveReservation)
+                    .addComponent(btnCancel))
                 .addGap(32, 32, 32))
         );
 
@@ -206,15 +200,52 @@ public class FrmReservations extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-   
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrmReservations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrmReservations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrmReservations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmReservations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                FrmReservations dialog = new FrmReservations(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddProduct;
+    private javax.swing.JButton btnAddDetail;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRemoveItem;
-    private javax.swing.JComboBox<String> cmbClient;
+    private javax.swing.JButton btnSaveReservation;
+    private javax.swing.JComboBox<Object> cmbClient;
     private javax.swing.JComboBox<Object> cmbServices;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -229,4 +260,57 @@ public class FrmReservations extends javax.swing.JDialog {
     private javax.swing.JTextField txtProductPrice;
     private javax.swing.JTextField txtSum;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JComboBox<Object> getCmbClient() {
+        return cmbClient;
+    }
+
+    public void setCmbClient(javax.swing.JComboBox<Object> cmbClient) {
+        this.cmbClient = cmbClient;
+    }
+
+    public javax.swing.JComboBox<Object> getCmbServices() {
+        return cmbServices;
+    }
+
+    public void setCmbServices(javax.swing.JComboBox<Object> cmbServices) {
+        this.cmbServices = cmbServices;
+    }
+
+    public javax.swing.JTextField getTxtDate() {
+        return txtDate;
+    }
+
+    public void setTxtDate(javax.swing.JTextField txtDate) {
+        this.txtDate = txtDate;
+    }
+
+    public javax.swing.JTextField getTxtProductPrice() {
+        return txtProductPrice;
+    }
+
+    public void setTxtProductPrice(javax.swing.JTextField txtProductPrice) {
+        this.txtProductPrice = txtProductPrice;
+    }
+
+    public javax.swing.JTextField getTxtSum() {
+        return txtSum;
+    }
+
+    public void setTxtSum(javax.swing.JTextField txtSum) {
+        this.txtSum = txtSum;
+    }
+    
+    
+    public void addBtnMakeReservationActionListener(ActionListener ae){
+        btnSaveReservation.addActionListener(ae);
+    }
+    public void addBtnAddActionListener(ActionListener ae){
+        btnAddDetail.addActionListener(ae);
+    }
+
+
+
+
+
 }
