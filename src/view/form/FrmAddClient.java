@@ -5,16 +5,19 @@
  */
 package view.form;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Nadja
  */
-public class FrmAddClient extends javax.swing.JFrame {
+public class FrmAddClient extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmAddClient
      */
-    public FrmAddClient() {
+    public FrmAddClient(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -27,25 +30,17 @@ public class FrmAddClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtSurname = new javax.swing.JTextField();
+        txtAdress = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        btnAdd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        txtSurname = new javax.swing.JTextField();
-        txtAdress = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
-        btnAdd = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Name");
-
-        jLabel2.setText("Surname");
-
-        jLabel3.setText("Email");
-
-        jLabel4.setText("Adress");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtSurname.setText("jTextField2");
 
@@ -54,6 +49,14 @@ public class FrmAddClient extends javax.swing.JFrame {
         txtEmail.setText("jTextField4");
 
         btnAdd.setText("Add ");
+
+        jLabel1.setText("Name");
+
+        jLabel2.setText("Surname");
+
+        jLabel3.setText("Email");
+
+        jLabel4.setText("Adress");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,10 +134,17 @@ public class FrmAddClient extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmAddClient().setVisible(true);
+                FrmAddClient dialog = new FrmAddClient(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -150,4 +160,28 @@ public class FrmAddClient extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtSurname;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JTextField getTxtAdress() {
+        return txtAdress;
+    }
+
+    public javax.swing.JTextField getTxtEmail() {
+        return txtEmail;
+    }
+
+    public javax.swing.JTextField getTxtName() {
+        return txtName;
+    }
+
+    public javax.swing.JTextField getTxtSurname() {
+        return txtSurname;
+    }   
+     public void addBtnAddActionListener(ActionListener ae){
+         btnAdd.addActionListener(ae);
+     }
+
+
+
+
+
 }

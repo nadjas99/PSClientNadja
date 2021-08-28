@@ -5,14 +5,28 @@
  */
 package view.coordinator;
 
+import communication.Operation;
+import communication.Request;
+import communication.Response;
+import domain.Client;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import view.controller.ClientController;
+import view.controller.ClientViewController;
 
 import view.controller.LoginController;
 import view.controller.MainController;
+import view.controller.ReservationsController;
+import view.controller.ServicesController;
+import view.form.FrmAddClient;
+import view.form.FrmClients;
 
 import view.form.FrmLogin;
 import view.form.FrmMain;
+import view.form.FrmReservations;
+import view.form.FrmServices;
+import view.form.mode.FormMode;
 
 
 /**
@@ -22,6 +36,8 @@ import view.form.FrmMain;
 public class ViewCordinator {
     private static ViewCordinator instance;
     MainController mainController;
+    ClientController clientController;
+    ClientViewController frmClients;
     
     private Map<String,Object> params;
  
@@ -59,6 +75,32 @@ public class ViewCordinator {
     public FrmMain getFrmMain() {
         return mainController.getFrmMain();
     }
+
+    public void openAddReservationForm() {
+        ReservationsController frmReservationsController= new ReservationsController(new FrmReservations(getFrmMain(), true));
+        frmReservationsController.openForm(FormMode.ADD);
+        
+    }
+    public void openAddClientForm(){
+        ClientController frmAddClientController=new ClientController(new FrmAddClient(getFrmMain(), true));
+        frmAddClientController.openForm();
+    }
+
+    public void openViewClientsForm() {
+      frmClients=new ClientViewController(new FrmClients(getFrmMain(), true));
+        frmClients.openForm();
+    }
+
+    public void refreshClients() {
+        frmClients.prepareView();
+    }
+
+    public void openServicesForm() {
+        ServicesController frmServices=new ServicesController(new FrmServices(getFrmMain(), true));
+        frmServices.openForm();
+    }
+ 
+
     
     
     

@@ -7,6 +7,7 @@ package view.form;
 
 import java.awt.Event;
 import java.awt.event.ActionListener;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -33,6 +34,7 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuReservations = new javax.swing.JMenu();
         jmiSeeAllReservations = new javax.swing.JMenuItem();
+        jmiMakeReservation = new javax.swing.JMenuItem();
         jMenuClients = new javax.swing.JMenu();
         jmiSeeAllClients = new javax.swing.JMenuItem();
         jmiAddNewClient = new javax.swing.JMenuItem();
@@ -45,6 +47,9 @@ public class FrmMain extends javax.swing.JFrame {
 
         jmiSeeAllReservations.setText("See all reservations");
         jMenuReservations.add(jmiSeeAllReservations);
+
+        jmiMakeReservation.setText("Make a reservation");
+        jMenuReservations.add(jmiMakeReservation);
 
         jMenuBar1.add(jMenuReservations);
 
@@ -122,6 +127,7 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuClients;
     private javax.swing.JMenu jMenuReservations;
     private javax.swing.JMenuItem jmiAddNewClient;
+    private javax.swing.JMenuItem jmiMakeReservation;
     private javax.swing.JMenuItem jmiSeeAllClients;
     private javax.swing.JMenuItem jmiSeeAllReservations;
     private javax.swing.JMenuItem jmiSeeAllServices;
@@ -197,6 +203,10 @@ public class FrmMain extends javax.swing.JFrame {
 
     public void addjmiSeeAllServicesListener(ActionListener actionListener) {
         jmiSeeAllServices.addActionListener(actionListener);
+    }
+
+    public JMenuItem getJmiMakeReservation() {
+        return jmiMakeReservation;
     }
     
 

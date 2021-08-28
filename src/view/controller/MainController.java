@@ -30,17 +30,24 @@ public class MainController {
     }
 
     private void addActionListener() {
+        frmMain.getJmiMakeReservation().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewCordinator.getInstance().openAddReservationForm(); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        
         frmMain.addjmiAddNewClientListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //ViewCordinator.getInstance().openAddMemberForm();
+                ViewCordinator.getInstance().openAddClientForm();
             }
         });
         
         frmMain.addjmiSeeAllClientsListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //ViewCordinator.getInstance().openViewMembers();
+                ViewCordinator.getInstance().openViewClientsForm();
             }
         });
         
@@ -54,7 +61,7 @@ public class MainController {
         frmMain.addjmiSeeAllServicesListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //ViewCordinator.getInstance().openProfileForm();
+                ViewCordinator.getInstance().openServicesForm();
             }
         });
     }

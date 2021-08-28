@@ -5,10 +5,14 @@
  */
 package view.controller;
 
+import communication.Communication;
+import domain.Photographer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import jdk.nashorn.internal.objects.NativeString;
+import view.coordinator.ViewCordinator;
 import view.form.FrmLogin;
 
 /**
@@ -40,9 +44,16 @@ public class LoginController {
                String username= frmLogin.getTxtUsername().getText().trim();
                String password=String.copyValueOf(frmLogin.getTxtPassword().getPassword()).trim();
                validateInput();
+               Communication.getInstance().connect();
+               Photographer admin = Communication.getInstance().login(username, password);
+            ViewCordinator.getInstance().addParam("Photographer", admin);
+            JOptionPane.showMessageDialog(frmLogin, "Successfully logged in, Welcome "+admin.getName());
+            ViewCordinator.getInstance().openMainForm();
+            frmLogin.dispose();
                
                     
                 } catch (Exception e) {
+                    JOptionPane.showMessageDialog(frmLogin, "Unsuccessfully logging : "+e.getMessage());
                 }
                
             

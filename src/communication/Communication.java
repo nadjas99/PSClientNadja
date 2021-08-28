@@ -6,7 +6,9 @@
 package communication;
 
 
+import domain.Client;
 import domain.Photographer;
+import domain.PhotographyServices;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
@@ -51,7 +53,10 @@ public class Communication {
    
     
     public Photographer login(String username, String password) throws Exception{
-        Request request = new Request(Operation.LOGIN, new Photographer(null, null,username,password));
+        Photographer ph=new Photographer();
+        ph.setUsername(username);
+        ph.setPassword(password);
+        Request request = new Request(Operation.LOGIN, ph);
         sender.send(request);
         
         Response response = (Response) receiver.receive();
@@ -59,6 +64,63 @@ public class Communication {
             return (Photographer) response.getResult();
         } else throw response.getException();
          
-    }}
+    }
+    public void addNewClient(Client c) throws Exception {
+        Request request = new Request(Operation.ADD_NEW_CLIENT,c);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException()==null){
+            
+        } else throw response.getException();
+    }
+
+    public List<Client> getAllClients() throws Exception {
+        Request request = new Request(Operation.GET_ALL_CLIENTS,null);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException()==null){
+            return (List<Client>) response.getResult();
+        } else throw response.getException();
+    }
+
+    public void editClient(Client c) throws Exception {
+        Request request = new Request(Operation.EDIT_CLIENT,c);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException()==null){
+            
+        } else throw response.getException();
+    }
+
+    public void deleteClient(Client c) throws Exception{
+        Request request = new Request(Operation.DELETE_CLIENT,c);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException()==null){
+            
+        } else throw response.getException();
+    }
+
+    public List<PhotographyServices> getAllServices() throws Exception {
+         Request request = new Request(Operation.GET_ALL_SERVICES,null);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException()==null){
+            return (List<PhotographyServices>) response.getResult();
+        } else throw response.getException();
+    }
+
+
+
+
+
+
+
+}
 
    
