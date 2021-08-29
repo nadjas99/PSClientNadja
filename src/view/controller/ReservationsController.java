@@ -5,17 +5,26 @@
  */
 package view.controller;
 
+import com.oracle.jrockit.jfr.DataType;
 import communication.Communication;
 import domain.Client;
 import domain.PhotographyServices;
+import domain.Reservation;
+import domain.ReservationDetail;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.coordinator.ViewCordinator;
 import view.form.FrmReservations;
 import view.form.mode.FormMode;
+import view.table.model.ReservationDetailTableModel;
 
 /**
  *
@@ -38,10 +47,19 @@ public class ReservationsController {
         frmReservations.setVisible(true);
         
     }
+     private void fillDefaultValues() {
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
+        String currentDate = df.format(new Date());
+        frmReservations.getTxtDate().setText(currentDate);
+        frmReservations.getTxtSum().setText("0.0");
+    }
 
     private void prepareView() {
        fillCbClients();
        fillCbServices();
+       fillDefaultValues();
+        ReservationDetailTableModel model=new ReservationDetailTableModel(new Reservation());
+        frmReservations.getTblItems().setModel(model);
     }
 
     private void fillCbClients() {
@@ -66,6 +84,13 @@ public class ReservationsController {
         } catch (Exception ex) {
             Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        frmReservations.getCmbServices().addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                PhotographyServices phs=(PhotographyServices) frmReservations.getCmbServices().getSelectedItem();
+                frmReservations.getTxtProductPrice().setText(String.valueOf(phs.getPrice()));
+            }
+        });
     }
 
     private void ActionPerformed() {
@@ -75,6 +100,19 @@ public class ReservationsController {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
+        frmReservations.addBtnAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ReservationDetail rd=new ReservationDetail();
+                rd.setCost(Double.valueOf(frmReservations.getTxtProductPrice().getText()));
+                rd.setService((PhotographyServices) frmReservations.getCmbServices().getSelectedItem());
+                ReservationDetailTableModel tbl=(ReservationDetailTableModel) frmReservations.getTblItems().getModel();
+                tbl.addItem(rd.getService(), rd.getCost());
+                
+                
+           }
+        });
+        
     }
     
 }

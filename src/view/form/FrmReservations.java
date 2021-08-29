@@ -6,6 +6,7 @@
 package view.form;
 
 import java.awt.event.ActionListener;
+import javax.swing.JTable;
 
 /**
  *
@@ -31,7 +32,7 @@ public class FrmReservations extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblItems = new javax.swing.JTable();
         cmbClient = new javax.swing.JComboBox<>();
         txtDate = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
@@ -52,7 +53,7 @@ public class FrmReservations extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -63,7 +64,7 @@ public class FrmReservations extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblItems);
 
         cmbClient.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -254,8 +255,8 @@ public class FrmReservations extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblItems;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtProductPrice;
     private javax.swing.JTextField txtSum;
@@ -308,6 +309,15 @@ public class FrmReservations extends javax.swing.JDialog {
     public void addBtnAddActionListener(ActionListener ae){
         btnAddDetail.addActionListener(ae);
     }
+
+    public JTable getTblItems() {
+        return tblItems;
+    }
+
+    public void setTblItems(JTable tblItems) {
+        this.tblItems = tblItems;
+    }
+    
 
 
 
