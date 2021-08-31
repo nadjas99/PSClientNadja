@@ -134,6 +134,15 @@ public class Communication {
             return (List<Reservation>) response.getResult();
         } else throw response.getException();
     }
+        public void editReservation(Reservation r) throws Exception {
+        Request request = new Request(Operation.UPDATE_RESERVATION,r);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException()==null){
+            
+        } else throw response.getException();
+    }
     
 
 

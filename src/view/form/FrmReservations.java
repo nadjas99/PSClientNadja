@@ -38,7 +38,7 @@ public class FrmReservations extends javax.swing.JDialog {
         tblItems = new javax.swing.JTable();
         cmbClient = new javax.swing.JComboBox<>();
         txtDate = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -76,7 +76,7 @@ public class FrmReservations extends javax.swing.JDialog {
 
         cmbClient.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTextField1.setEditable(false);
+        txtId.setEditable(false);
 
         jLabel1.setText("Client");
 
@@ -176,7 +176,7 @@ public class FrmReservations extends javax.swing.JDialog {
                             .addComponent(cmbClient, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                             .addComponent(txtSum)
-                            .addComponent(jTextField1)
+                            .addComponent(txtId)
                             .addComponent(txtPlace))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -191,7 +191,7 @@ public class FrmReservations extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(cmbReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -288,9 +288,9 @@ public class FrmReservations extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblItems;
     private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtPlace;
     private javax.swing.JTextField txtProductPrice;
     private javax.swing.JTextField txtSum;
@@ -390,7 +390,18 @@ public class FrmReservations extends javax.swing.JDialog {
         
         this.btnRemoveItem.addActionListener(ae);
     }
-    
+
+    public JTextField getTxtId() {
+        return txtId;
+    }
+
+    public void setTxtId(JTextField txtId) {
+        this.txtId = txtId;
+    }
+    public void addBtnEditActLis(ActionListener ae){
+        
+        this.btnEdit.addActionListener(ae);
+    }
 
 
 

@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class ReservationDetailTableModel extends AbstractTableModel{
     
      private final Reservation reservation;
-    private final String[] columnNames = new String[]{"Component No.", "Service", "Price"};
+    private final String[] columnNames = new String[]{ "Service", "Price"};
 
     public ReservationDetailTableModel(Reservation reservation) {
         this.reservation = reservation;

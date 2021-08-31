@@ -56,7 +56,7 @@ public class ReservationsController {
                 prepareViewEdit();
                 frmReservations.setLocationRelativeTo(ViewCordinator.getInstance().getFrmMain());
                 frmReservations.setVisible(true);
-                fillCbServices();
+                
                 break;
         
         }
@@ -179,10 +179,43 @@ public class ReservationsController {
             }
         });
         
+        frmReservations.addBtnEditActLis(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
+                ReservationDetailTableModel tblmodel=(ReservationDetailTableModel) frmReservations.getTblItems().getModel();
+                Reservation res=tblmodel.getInvoice();
+                
+                try {
+                    res.setDate(df.parse(frmReservations.getTxtDate().getText().trim()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                    res.setPlace(frmReservations.getTxtPlace().getText());
+                    try {
+                        Communication.getInstance().editReservation(res);
+                        
+                        
+                    JOptionPane.showMessageDialog(frmReservations, "Reservation is edited!");
+                    } catch (Exception ex) {
+                        System.out.println("Greska kod slanja rezervacije");
+                        JOptionPane.showMessageDialog(frmReservations, "Could not edit reservation..");
+                        Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+//                } catch (ParseException ex) {
+//                    System.out.println("Greska kod parsiranja");
+//                    Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+            
+                   }});
+        
         
     }
 
     private void prepareViewEdit() {
+        
+        fillCbServices();
         frmReservations.getBtnSaveReservation().setVisible(false);
         frmReservations.getCmbReservation().setVisible(true);
         frmReservations.getCmbReservation().removeAllItems();
@@ -200,8 +233,12 @@ public class ReservationsController {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 Reservation r=(Reservation) frmReservations.getCmbReservation().getSelectedItem();
+                DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
+        String currentDate = df.format(r.getDate());
+        frmReservations.getTxtDate().setText(currentDate);
+                frmReservations.getTxtId().setText(String.valueOf(r.getId()));
                 frmReservations.getTxtPlace().setText(r.getPlace());
-                frmReservations.getTxtDate().setText(String.valueOf(r.getDate()));
+                
                 frmReservations.getTxtSum().setText(String.valueOf(r.getCost()));
                 frmReservations.getCmbClient().removeAllItems();
                  
@@ -220,14 +257,27 @@ public class ReservationsController {
                 } catch (Exception ex) {
                     Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                
-                 ReservationDetailTableModel model=new ReservationDetailTableModel(new Reservation());
-                    frmReservations.getTblItems().setModel(model);
+                try {
+                    List<PhotographyServices> phs=Communication.getInstance().getAllServices();
+                     
                      List<ReservationDetail> details=r.getReservationDetails();
-                     for (ReservationDetail detail : details) {
-                    model.addItem(detail.getService(), detail.getCost());
+                     for (ReservationDetail detail : r.getReservationDetails()) {
+                         for (PhotographyServices service : phs) {
+                             if(detail.getService().getId().equals(service.getId())){
+                                 detail.setService(service);
+                             }
+                         }
+                    
                 }
+                   
+                } catch (Exception ex) {
+                    Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                ReservationDetailTableModel model=new ReservationDetailTableModel(r);
+                    frmReservations.getTblItems().setModel(model);
+                
+                
+                  
                      
                      
                
