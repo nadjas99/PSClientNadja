@@ -54,7 +54,7 @@ public class MainController {
         frmMain.addjmiSeeAllReservationsListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //ViewCordinator.getInstance().openViewTaskGroups();
+                ViewCordinator.getInstance().openEditReservationForm();
             }
         });
         

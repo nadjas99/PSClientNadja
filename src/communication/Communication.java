@@ -9,6 +9,7 @@ package communication;
 import domain.Client;
 import domain.Photographer;
 import domain.PhotographyServices;
+import domain.Reservation;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
@@ -114,6 +115,26 @@ public class Communication {
             return (List<PhotographyServices>) response.getResult();
         } else throw response.getException();
     }
+     public void addNewReservation(Reservation r) throws Exception {
+        Request request = new Request(Operation.ADD_NEW_RESERVATION,r);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException()==null){
+            
+        } else throw response.getException();
+    }
+     
+      public List<Reservation> getAllRes() throws Exception {
+        Request request = new Request(Operation.GET_ALL_RESERVATIONS,null);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException()==null){
+            return (List<Reservation>) response.getResult();
+        } else throw response.getException();
+    }
+    
 
 
 

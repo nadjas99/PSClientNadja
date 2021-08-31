@@ -5,9 +5,10 @@
  */
 package view.controller;
 
-import com.oracle.jrockit.jfr.DataType;
+
 import communication.Communication;
 import domain.Client;
+import domain.Photographer;
 import domain.PhotographyServices;
 import domain.Reservation;
 import domain.ReservationDetail;
@@ -16,11 +17,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import view.coordinator.ViewCordinator;
 import view.form.FrmReservations;
 import view.form.mode.FormMode;
@@ -42,9 +45,22 @@ public class ReservationsController {
     
     
     public void openForm(FormMode formMode){
-        prepareView();
-        frmReservations.setLocationRelativeTo(ViewCordinator.getInstance().getFrmMain());
-        frmReservations.setVisible(true);
+        
+        switch(formMode){
+            case ADD:
+                prepareView();
+                frmReservations.setLocationRelativeTo(ViewCordinator.getInstance().getFrmMain());
+                frmReservations.setVisible(true);
+                break;
+            case EDIT:
+                prepareViewEdit();
+                frmReservations.setLocationRelativeTo(ViewCordinator.getInstance().getFrmMain());
+                frmReservations.setVisible(true);
+                fillCbServices();
+                break;
+        
+        }
+        
         
     }
      private void fillDefaultValues() {
@@ -55,10 +71,12 @@ public class ReservationsController {
     }
 
     private void prepareView() {
+        frmReservations.getBtnEdit().setVisible(false);
+        frmReservations.getCmbReservation().setVisible(false);
        fillCbClients();
        fillCbServices();
        fillDefaultValues();
-        ReservationDetailTableModel model=new ReservationDetailTableModel(new Reservation());
+       ReservationDetailTableModel model=new ReservationDetailTableModel(new Reservation());
         frmReservations.getTblItems().setModel(model);
     }
 
@@ -77,6 +95,7 @@ public class ReservationsController {
     private void fillCbServices() {
         try {
             frmReservations.getCmbServices().removeAllItems();
+            frmReservations.getCmbServices().setSelectedIndex(-1);
             List<PhotographyServices> services=Communication.getInstance().getAllServices();
             for (PhotographyServices service : services) {
               frmReservations.getCmbServices().addItem(service);
@@ -94,12 +113,7 @@ public class ReservationsController {
     }
 
     private void ActionPerformed() {
-        frmReservations.addBtnMakeReservationActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
+        
         frmReservations.addBtnAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,10 +122,123 @@ public class ReservationsController {
                 rd.setService((PhotographyServices) frmReservations.getCmbServices().getSelectedItem());
                 ReservationDetailTableModel tbl=(ReservationDetailTableModel) frmReservations.getTblItems().getModel();
                 tbl.addItem(rd.getService(), rd.getCost());
+                frmReservations.getTxtSum().setText(String.valueOf(tbl.getInvoice().getCost()));
                 
                 
            }
         });
+        
+        
+        frmReservations.addBtnMakeReservationActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
+                ReservationDetailTableModel tblmodel=(ReservationDetailTableModel) frmReservations.getTblItems().getModel();
+                Reservation res=tblmodel.getInvoice();
+                try {
+                    res.setDate(df.parse(frmReservations.getTxtDate().getText().trim()));
+                    Client c=(Client) frmReservations.getCmbClient().getSelectedItem();
+                    res.setClient(c);
+                    res.setPhotographer((Photographer) ViewCordinator.getInstance().getParam("photographer"));
+                    res.setPlace(frmReservations.getTxtPlace().getText());
+                    try {
+                        Communication.getInstance().addNewReservation(res);
+                        
+                        
+                    JOptionPane.showMessageDialog(frmReservations, "Reservation is saved!");
+                    } catch (Exception ex) {
+                        System.out.println("Greska kod slanja rezervacije");
+                        JOptionPane.showMessageDialog(frmReservations, "Could not save reservation..");
+                        Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                } catch (ParseException ex) {
+                    System.out.println("Greska kod parsiranja");
+                    Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+          }
+        });
+        
+        frmReservations.addBtnRemoveActLis(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeInvoiceItem();
+            }
+
+            private void removeInvoiceItem() {
+                int rowIndex = frmReservations.getTblItems().getSelectedRow();
+                ReservationDetailTableModel model =  (ReservationDetailTableModel) frmReservations.getTblItems().getModel();
+                if (rowIndex >= 0) {
+                    model.removeInvoiceItem(rowIndex);
+                    double amount = model.getInvoice().getCost();
+                    frmReservations.getTxtSum().setText(String.valueOf(amount));
+                } else {
+                    JOptionPane.showMessageDialog(frmReservations, "Reservation item is not selected!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        
+        
+    }
+
+    private void prepareViewEdit() {
+        frmReservations.getBtnSaveReservation().setVisible(false);
+        frmReservations.getCmbReservation().setVisible(true);
+        frmReservations.getCmbReservation().removeAllItems();
+        try {
+            List<Reservation>reservations=Communication.getInstance().getAllRes();
+            for (Reservation reservation : reservations) {
+                frmReservations.getCmbReservation().addItem(reservation);
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        frmReservations.getCmbReservation().addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                Reservation r=(Reservation) frmReservations.getCmbReservation().getSelectedItem();
+                frmReservations.getTxtPlace().setText(r.getPlace());
+                frmReservations.getTxtDate().setText(String.valueOf(r.getDate()));
+                frmReservations.getTxtSum().setText(String.valueOf(r.getCost()));
+                frmReservations.getCmbClient().removeAllItems();
+                 
+                
+                try {
+                    List<Client> clients=Communication.getInstance().getAllClients();
+                    
+                    for (Client client : clients) {
+                      
+                        if(client.getId().equals(r.getClient().getId()) ){
+                          r.setClient(client);
+                          
+                    }}
+                    frmReservations.getCmbClient().addItem(r.getClient());
+                    
+                } catch (Exception ex) {
+                    Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
+                 ReservationDetailTableModel model=new ReservationDetailTableModel(new Reservation());
+                    frmReservations.getTblItems().setModel(model);
+                     List<ReservationDetail> details=r.getReservationDetails();
+                     for (ReservationDetail detail : details) {
+                    model.addItem(detail.getService(), detail.getCost());
+                }
+                     
+                     
+               
+        
+                
+                
+            }
+        });
+     
+       
+            
         
     }
     

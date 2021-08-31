@@ -81,6 +81,11 @@ public class ViewCordinator {
         frmReservationsController.openForm(FormMode.ADD);
         
     }
+     public void openEditReservationForm() {
+        ReservationsController frmReservationsController= new ReservationsController(new FrmReservations(getFrmMain(), true));
+        frmReservationsController.openForm(FormMode.EDIT);
+        
+    }
     public void openAddClientForm(){
         ClientController frmAddClientController=new ClientController(new FrmAddClient(getFrmMain(), true));
         frmAddClientController.openForm();

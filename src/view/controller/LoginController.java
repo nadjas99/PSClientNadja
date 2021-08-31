@@ -46,7 +46,7 @@ public class LoginController {
                validateInput();
                Communication.getInstance().connect();
                Photographer admin = Communication.getInstance().login(username, password);
-            ViewCordinator.getInstance().addParam("Photographer", admin);
+            ViewCordinator.getInstance().addParam("photographer", admin);
             JOptionPane.showMessageDialog(frmLogin, "Successfully logged in, Welcome "+admin.getName());
             ViewCordinator.getInstance().openMainForm();
             frmLogin.dispose();
