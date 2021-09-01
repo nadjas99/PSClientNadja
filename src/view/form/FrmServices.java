@@ -35,7 +35,6 @@ public class FrmServices extends javax.swing.JDialog {
         txtName = new javax.swing.JTextField();
         txtPrice = new javax.swing.JTextField();
         txtDesc = new javax.swing.JTextField();
-        btnCancel = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -54,8 +53,6 @@ public class FrmServices extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setText("Pick a photography service:");
 
-        btnCancel.setText("Cancel");
-
         jLabel2.setText("Ph. service");
 
         jLabel3.setText("Price");
@@ -69,22 +66,17 @@ public class FrmServices extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(cmbServices, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtName)
-                            .addComponent(txtPrice)
-                            .addComponent(txtDesc)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(btnDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(cmbServices, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtName)
+                    .addComponent(txtPrice)
+                    .addComponent(txtDesc)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(btnDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,9 +100,7 @@ public class FrmServices extends javax.swing.JDialog {
                 .addComponent(jLabel4)
                 .addGap(12, 12, 12)
                 .addComponent(txtDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCancel)
-                .addContainerGap())
+                .addGap(63, 63, 63))
         );
 
         pack();
@@ -163,7 +153,6 @@ public class FrmServices extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDisplay;
     private javax.swing.JComboBox<Object> cmbServices;
     private javax.swing.JLabel jLabel1;

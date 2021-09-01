@@ -7,6 +7,7 @@ package view.form;
 
 import java.awt.Event;
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
 /**
@@ -31,6 +32,8 @@ public class FrmMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblUser = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuReservations = new javax.swing.JMenu();
         jmiSeeAllReservations = new javax.swing.JMenuItem();
@@ -42,6 +45,12 @@ public class FrmMain extends javax.swing.JFrame {
         jmiSeeAllServices = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblUser.setFont(new java.awt.Font("Monotype Corsiva", 2, 24)); // NOI18N
+        lblUser.setText("n");
+
+        btnLogout.setBackground(new java.awt.Color(255, 102, 102));
+        btnLogout.setText("Logout");
 
         jMenuReservations.setText("Reservations");
 
@@ -76,11 +85,23 @@ public class FrmMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(204, 204, 204))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 341, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(170, Short.MAX_VALUE)
+                .addComponent(lblUser)
+                .addGap(43, 43, 43)
+                .addComponent(btnLogout)
+                .addGap(71, 71, 71))
         );
 
         pack();
@@ -123,6 +144,7 @@ public class FrmMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu JMenuPservice;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuClients;
     private javax.swing.JMenu jMenuReservations;
@@ -131,6 +153,7 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiSeeAllClients;
     private javax.swing.JMenuItem jmiSeeAllReservations;
     private javax.swing.JMenuItem jmiSeeAllServices;
+    private javax.swing.JLabel lblUser;
     // End of variables declaration//GEN-END:variables
 
     public javax.swing.JMenu getJMenuPservice() {
@@ -207,6 +230,17 @@ public class FrmMain extends javax.swing.JFrame {
 
     public JMenuItem getJmiMakeReservation() {
         return jmiMakeReservation;
+    }
+
+    public JLabel getLblUser() {
+        return lblUser;
+    }
+
+    public void setLblUser(JLabel lblUser) {
+        this.lblUser = lblUser;
+    }
+    public void addBtnLogoutActionListener(ActionListener ae){
+        btnLogout.addActionListener(ae);
     }
     
 

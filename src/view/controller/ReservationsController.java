@@ -95,11 +95,13 @@ public class ReservationsController {
     private void fillCbServices() {
         try {
             frmReservations.getCmbServices().removeAllItems();
-            frmReservations.getCmbServices().setSelectedIndex(-1);
+            
             List<PhotographyServices> services=Communication.getInstance().getAllServices();
             for (PhotographyServices service : services) {
               frmReservations.getCmbServices().addItem(service);
             }
+            frmReservations.getCmbServices().setSelectedItem(services.get(0));
+            frmReservations.getTxtProductPrice().setText(String.valueOf(services.get(0).getPrice()));
         } catch (Exception ex) {
             Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,16 +143,27 @@ public class ReservationsController {
                     res.setClient(c);
                     res.setPhotographer((Photographer) ViewCordinator.getInstance().getParam("photographer"));
                     res.setPlace(frmReservations.getTxtPlace().getText());
+                    
                     try {
+                        validateReservation(res);
+                        try {
+                        
                         Communication.getInstance().addNewReservation(res);
-                        
-                        
-                    JOptionPane.showMessageDialog(frmReservations, "Reservation is saved!");
-                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(frmReservations, "Reservation is saved!");
+                        } catch (Exception ex) {
                         System.out.println("Greska kod slanja rezervacije");
                         JOptionPane.showMessageDialog(frmReservations, "Could not save reservation..");
                         Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(frmReservations, "Fill in everything and try again");
+                        Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        
+                        
+                        
+                    
+                    
                     
                 } catch (ParseException ex) {
                     System.out.println("Greska kod parsiranja");
@@ -158,6 +171,8 @@ public class ReservationsController {
                 }
                 
           }
+
+
         });
         
         frmReservations.addBtnRemoveActLis(new ActionListener() {
@@ -192,16 +207,24 @@ public class ReservationsController {
                     Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                     res.setPlace(frmReservations.getTxtPlace().getText());
+                try {
+                    validateReservation(res);
                     try {
+                         
                         Communication.getInstance().editReservation(res);
                         
                         
                     JOptionPane.showMessageDialog(frmReservations, "Reservation is edited!");
                     } catch (Exception ex) {
-                        System.out.println("Greska kod slanja rezervacije");
+                        
                         JOptionPane.showMessageDialog(frmReservations, "Could not edit reservation..");
-                        Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                        
                     }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(frmReservations, "Could not edit reservation, fill in all fields!");
+                    
+                }
+                    
                     
 //                } catch (ParseException ex) {
 //                    System.out.println("Greska kod parsiranja");
@@ -212,6 +235,14 @@ public class ReservationsController {
         
         
     }
+    
+                private void validateReservation(Reservation res) throws Exception {
+                if(frmReservations.getTxtDate().getText().equals("") || frmReservations.getTxtPlace().getText().equals("") || frmReservations.getTxtSum().getText().equals("") || frmReservations.getTxtSum().getText().equals("0.0" )){
+                throw new Exception();
+                
+                
+                }
+            }
 
     private void prepareViewEdit() {
         
@@ -255,7 +286,7 @@ public class ReservationsController {
                     frmReservations.getCmbClient().addItem(r.getClient());
                     
                 } catch (Exception ex) {
-                    Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(frmReservations, ex);
                 }
                 try {
                     List<PhotographyServices> phs=Communication.getInstance().getAllServices();
@@ -271,7 +302,7 @@ public class ReservationsController {
                 }
                    
                 } catch (Exception ex) {
-                    Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                   JOptionPane.showMessageDialog(frmReservations, ex);
                 }
                 ReservationDetailTableModel model=new ReservationDetailTableModel(r);
                     frmReservations.getTblItems().setModel(model);

@@ -143,6 +143,16 @@ public class Communication {
             
         } else throw response.getException();
     }
+        
+          public Socket logout(Photographer p) throws Exception {
+        Request request = new Request(Operation.LOGOUT,p);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException()==null){
+            return socket;
+        } else throw response.getException();
+    }
     
 
 

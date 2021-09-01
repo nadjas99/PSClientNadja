@@ -6,8 +6,12 @@
 package view.controller;
 
 
+import domain.Photographer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.Socket;
+import java.net.SocketException;
+import javax.swing.JOptionPane;
 import view.coordinator.ViewCordinator;
 import view.form.FrmMain;
 
@@ -64,10 +68,30 @@ public class MainController {
                 ViewCordinator.getInstance().openServicesForm();
             }
         });
+        frmMain.addBtnLogoutActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                 try{
+            Photographer cm = (Photographer) ViewCordinator.getInstance().getParam("photographer");
+            Socket socket = communication.Communication.getInstance().logout(cm);
+            frmMain.dispose();
+           
+            socket.close();
+            ViewCordinator.getInstance().openLoginForm();
+        }catch(SocketException se){
+            JOptionPane.showMessageDialog(frmMain, "Server is closed, Goodbye");
+            System.exit(0);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(frmMain, "Goodbye!"+e.getMessage());
+        }
+            }
+        });
     }
 
     private void prepareView() {
-        
+        Photographer p = (Photographer) ViewCordinator.getInstance().getParam("photographer");
+        frmMain.getLblUser().setText(p.toString());
     }
 
     public FrmMain getFrmMain() {
